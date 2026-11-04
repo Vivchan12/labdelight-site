@@ -40,7 +40,10 @@ const escapeAttr = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 function build(locale) {
   const dict = JSON.parse(readFileSync(`i18n/${locale}.json`, 'utf8'));
   const meta = dict.__meta;
-  let html = source;
+  // The English page may carry its own interactive-text payload (added by
+  // scripts/pull-sanity.mjs when that text is edited in Sanity). Each locale
+  // injects its own below, so drop the English one.
+  let html = source.replace(/<script id="i18n-en">[\s\S]*?<\/script>\n\s*/, '');
   let translated = 0, fellBack = 0;
 
   // Replace the inner HTML of every keyed element.

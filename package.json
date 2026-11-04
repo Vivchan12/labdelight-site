@@ -1,0 +1,13 @@
+{
+  "name": "labdelight-site",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/pull-sanity.mjs && node build-i18n.mjs && node build-insights.mjs",
+    "check:cms": "node scripts/pull-sanity.mjs --check",
+    "serve": "python3 -m http.server 8899"
+  }
+}
