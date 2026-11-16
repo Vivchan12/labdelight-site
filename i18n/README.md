@@ -4,23 +4,29 @@
 `data-i18n` key; each locale's copy lives in `<locale>.json`, which also holds
 that locale's meta tags and the strings `script.js` renders at runtime.
 
+Published wording is pulled from Sanity by `scripts/pull-sanity.mjs` during
+`npm run build`, which overwrites these JSON files. A hand edit of the JSON
+lasts until the next pull. See the root `README.md` and `HANDOVER.md`.
+
 ```
 node build-i18n.mjs
 ```
 
 regenerates `zh-CN/index.html` and `zh-HK/index.html`.
 
-**Edit the English page and the JSON, then rebuild.** Hand-edits to `zh-CN/` or
-`zh-HK/` are overwritten on the next run.
+**Edit the English page and the JSON, then rebuild**, when the change is
+structure or a key Sanity does not own yet. Hand-edits to `zh-CN/` or `zh-HK/`
+are overwritten on the next run. Wording Sanity already has is overwritten too.
 
 Adding copy to `index.html`? Give the element a `data-i18n="section.some-key"`,
 add the same key to all three JSON files, and rebuild. The build reports any
 key that falls back to English and exits non-zero, so a missed translation
 fails loudly rather than shipping in the wrong language.
 
-`_translations.cjs` is the authoring source — one row per key holding both
-Chinese variants side by side — and `assemble` in the git history shows how the
-locale files were produced from it.
+`_translations.cjs` is an older side-by-side draft of the two Chinese
+variants. Nothing in the current build reads it, and its wording does not match
+`zh-CN.json` and `zh-HK.json`. This repository's git history does not contain
+an `assemble` step that produced the locale files from it.
 
 ## Which Chinese
 
